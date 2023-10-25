@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="38dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/txtResultado"
         android:layout_width="356dp"
@@ -224,6 +222,25 @@
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn0"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0" /><![CDATA[
+    =======
 
+
+
+
+
+
+
+
+
+
+
+    >>>>>>> 2586246cd39835342909fe62a820bb0cd2149399
+
+
+
+
+
+
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>
