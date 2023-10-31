@@ -2,10 +2,12 @@ package com.example.calculadorajava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,10 +17,15 @@ public class MainActivity extends AppCompatActivity {
     double primerDigito;
     String operation;
 
+    Button igualBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView NameBoton = findViewById(R.id.btnIgual);
+        igualBtn = findViewById(R.id.btnIgual);
 
         //Botones de numero
 
