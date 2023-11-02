@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView NameBoton = findViewById(R.id.btnIgual);
-        igualBtn = findViewById(R.id.btnIgual);
+
 
         //Botones de numero
 
