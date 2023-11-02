@@ -15,8 +15,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     double primerDigito;
-    String operation;
+    String operation ="";
 
+    String operacionCompleta = "";
     Button igualBtn;
 
     @Override
@@ -69,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
         for (Button num : numeros) {
             num.setOnClickListener(view -> {
                 if (!screen.getText().toString().equals("0")) {
-                    screen.setText(screen.getText().toString() + num.getText().toString());
+                    operacionCompleta += num.getText().toString(); // Agregar el número a la operación completa
+                    screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
                 } else {
-                    screen.setText(num.getText().toString());
+                    operacionCompleta = num.getText().toString(); // Iniciar una nueva operación
+                    screen.setText(operacionCompleta);
                 }
             });
         }
@@ -90,9 +93,12 @@ public class MainActivity extends AppCompatActivity {
             boton1.setOnClickListener(view -> {
                 primerDigito = Double.parseDouble(screen.getText().toString());
                 operation = boton1.getText().toString();
-                screen.setText("0");
+                operacionCompleta += operation; // Agregar el operador a la operación completa
+                screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
+                operacionCompleta = ""; // Limpiar la variable para la siguiente operación
             });
         }
+
 
         eliminar.setOnClickListener(view -> {
             String num = screen.getText().toString();
@@ -133,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     result = primerDigito / segundoDigito;
                     break;
                 case "√":
+
                 default:
                     throw new IllegalStateException("Unexpected value: " + operation);
             }

@@ -21,12 +21,13 @@
 
     <Button
         android:id="@+id/btn7"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:backgroundTint="#757575"
         android:text="7"
-        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textColorHighlight="#675D5D"
         android:textColorLink="#E10E0E"
         app:cornerRadius="0dp"
@@ -37,8 +38,8 @@
 
     <Button
         android:id="@+id/cleanCalculadora"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:layout_marginBottom="60dp"
         android:background="@drawable/round_button"
         android:text="AC"
@@ -50,8 +51,8 @@
 
     <Button
         android:id="@+id/btn4"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="4"
         app:cornerRadius="0dp"
@@ -62,8 +63,8 @@
 
     <Button
         android:id="@+id/btn1"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="1"
         app:cornerRadius="0dp"
@@ -75,8 +76,8 @@
 
     <Button
         android:id="@+id/btnEliminar"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="Borrar"
         app:cornerRadius="0dp"
@@ -87,8 +88,8 @@
 
     <Button
         android:id="@+id/btn0"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="0"
         app:cornerRadius="0dp"
@@ -98,21 +99,9 @@
         app:layout_constraintStart_toEndOf="@+id/btnEliminar" />
 
     <Button
-        android:id="@+id/btnComa"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
-        android:background="@drawable/round_button"
-        android:text=","
-        app:cornerRadius="0dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn0"
-        app:layout_constraintEnd_toStartOf="@+id/btnSuma"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn0" />
-
-    <Button
         android:id="@+id/btn5"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="5"
         app:cornerRadius="0dp"
@@ -123,8 +112,8 @@
 
     <Button
         android:id="@+id/btn2"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="2"
         app:cornerRadius="0dp"
@@ -135,8 +124,8 @@
 
     <Button
         android:id="@+id/btn3"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:text="3"
         app:cornerRadius="0dp"
@@ -147,8 +136,8 @@
 
     <Button
         android:id="@+id/btnRestar"
-        android:layout_width="65dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
         android:background="@drawable/round_button"
         android:backgroundTint="#FF9800"
         android:text="-"
@@ -170,6 +159,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnComa" />
+
+    <Button
+        android:id="@+id/btnComa"
+        android:layout_width="65dp"
+        android:layout_height="60dp"
+        android:background="@drawable/round_button"
+        android:text=","
+        app:cornerRadius="0dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn0"
+        app:layout_constraintEnd_toStartOf="@+id/btnSuma"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn0" />
 
     <Button
         android:id="@+id/btn6"
@@ -244,6 +245,7 @@
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.416"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn0"
         app:layout_constraintVertical_bias="1.0" />
