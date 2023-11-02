@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Button eliminar = findViewById(R.id.btnEliminar);
         Button igual = findViewById(R.id.btnIgual);
         Button clean = findViewById(R.id.cleanCalculadora);
+        Button raiz = findViewById(R.id.btnRaiz);
 
         TextView screen = findViewById(R.id.txtResultado);
 
@@ -82,8 +83,7 @@ public class MainActivity extends AppCompatActivity {
         operando.add(resta);
         operando.add(multi);
         operando.add(divison);
-
-        clean.setOnClickListener(view -> screen.setVisibility(View.VISIBLE));
+        operando.add(raiz);
 
 
         for (Button boton1 : operando) {
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         decimal.setOnClickListener(view -> {
             if (!screen.getText().toString().contains(".")) {
                 screen.setText(screen.getText().toString() + ".");
@@ -110,12 +111,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        clean.setOnClickListener(view -> {
+            screen.setText("0");
+        });
+
+
         igual.setOnClickListener(view -> {
             double segundoDigito = Double.parseDouble(screen.getText().toString());
-            double result = 0;
+            double result;
             switch (operation) {
                 case "+":
-                    result = primerDigito+segundoDigito;
+                    result = primerDigito + segundoDigito;
                     break;
                 case "-":
                     result = primerDigito - segundoDigito;
@@ -126,10 +132,12 @@ public class MainActivity extends AppCompatActivity {
                 case "/":
                     result = primerDigito / segundoDigito;
                     break;
+                case "√":
+                default:
+                    throw new IllegalStateException("Unexpected value: " + operation);
             }
             screen.setText(String.valueOf(result));
             primerDigito = result;
         });
-
     }
 }
