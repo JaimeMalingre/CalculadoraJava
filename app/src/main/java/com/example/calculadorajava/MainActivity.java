@@ -2,14 +2,10 @@ package com.example.calculadorajava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,10 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         //Botones de numero
 
-        Button btn0 = findViewById(R.id.btn0);
+        Button btn0 = findViewById(R.id.btn2);
         Button btn1 = findViewById(R.id.btn1);
         Button btn2 = findViewById(R.id.btn2);
         Button btn3 = findViewById(R.id.btn3);
@@ -93,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 primerDigito = Double.parseDouble(screen.getText().toString());
                 operation = boton1.getText().toString();
                 operacionCompleta += operation; // Agregar el operador a la operación completa
-                screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
+                screen.setText(operation); // Mostrar la operación completa en el TextView
                 operacionCompleta = ""; // Limpiar la variable para la siguiente operación
             });
         }
