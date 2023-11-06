@@ -11,7 +11,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     double primerDigito;
+    double segundoDigito;
+
+    boolean segundoNumero = false;
     String operation ="";
+
+    double numActual = 0;
 
     String operacionCompleta = "";
     Button igualBtn;
@@ -24,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Botones de numero
 
-        Button btn0 = findViewById(R.id.btn2);
+        Button btn0 = findViewById(R.id.btn0);
         Button btn1 = findViewById(R.id.btn1);
         Button btn2 = findViewById(R.id.btn2);
         Button btn3 = findViewById(R.id.btn3);
@@ -60,16 +65,15 @@ public class MainActivity extends AppCompatActivity {
         numeros.add(btn8);
         numeros.add(btn9);
 
-
+        //Recorremos los numeros y los añadimos al texview
         for (Button num : numeros) {
             num.setOnClickListener(view -> {
-                if (!screen.getText().toString().equals("0")) {
-                    operacionCompleta += num.getText().toString(); // Agregar el número a la operación completa
-                    screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
-                } else {
-                    operacionCompleta = num.getText().toString(); // Iniciar una nueva operación
-                    screen.setText(operacionCompleta);
+                if (segundoNumero) {
+                    operacionCompleta = ""; // Limpiar la operación completa para ingresar el segundo número
+                    segundoNumero = false; // Restablecer el indicador del segundo número
                 }
+                operacionCompleta += num.getText().toString();
+                screen.setText(operacionCompleta);
             });
         }
 
@@ -86,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
         for (Button boton1 : operando) {
             boton1.setOnClickListener(view -> {
                 primerDigito = Double.parseDouble(screen.getText().toString());
+                segundoDigito = Double.parseDouble(screen.getText().toString());
                 operation = boton1.getText().toString();
-                operacionCompleta += operation; // Agregar el operador a la operación completa
+                //operacionCompleta += operation; // Agregar el operador a la operación completa
                 screen.setText(operation); // Mostrar la operación completa en el TextView
                 operacionCompleta = ""; // Limpiar la variable para la siguiente operación
             });
@@ -97,12 +102,23 @@ public class MainActivity extends AppCompatActivity {
         eliminar.setOnClickListener(view -> {
             String num = screen.getText().toString();
             if (num.length() > 1) {
+                // Si hay más de un dígito, elimina el último dígito
+                operacionCompleta = operacionCompleta.substring(0, operacionCompleta.length() - 1);
+                numActual = Double.parseDouble(operacionCompleta);
                 screen.setText(num.substring(0, num.length() - 1));
-            } else if (num.length() == 1 && !num.equals("0")) {
+            } else {
+                // Si solo hay un dígito, establece el texto como "0" y numActual como 0
+                operacionCompleta = "";
+                numActual = 0;
                 screen.setText("0");
             }
         });
 
+        clean.setOnClickListener(view -> {
+            operacionCompleta = "";
+            numActual = 0;
+            screen.setText("0");
+        });
 
         decimal.setOnClickListener(view -> {
             if (!screen.getText().toString().contains(".")) {
@@ -111,9 +127,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        clean.setOnClickListener(view -> {
-            screen.setText("0");
-        });
 
 
         igual.setOnClickListener(view -> {
@@ -133,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     result = primerDigito / segundoDigito;
                     break;
                 case "√":
-
+                    result = Math.sqrt(segundoDigito);
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + operation);
             }
