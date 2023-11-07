@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity {
     double segundoDigito;
 
     boolean segundoNumero = false;
-    String operation ="";
+    String operation = "";
 
     double numActual = 0;
 
     String operacionCompleta = "";
-    Button igualBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +90,9 @@ public class MainActivity extends AppCompatActivity {
         for (Button boton1 : operando) {
             boton1.setOnClickListener(view -> {
                 primerDigito = Double.parseDouble(screen.getText().toString());
-                segundoDigito = Double.parseDouble(screen.getText().toString());
                 operation = boton1.getText().toString();
-                //operacionCompleta += operation; // Agregar el operador a la operación completa
-                screen.setText(operation); // Mostrar la operación completa en el TextView
-                operacionCompleta = ""; // Limpiar la variable para la siguiente operación
+                operacionCompleta += operation; // Agregar el operador a la operación completa
+                screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
             });
         }
 
@@ -121,38 +119,74 @@ public class MainActivity extends AppCompatActivity {
         });
 
         decimal.setOnClickListener(view -> {
-            if (!screen.getText().toString().contains(".")) {
-                screen.setText(screen.getText().toString() + ".");
+            String currentText = screen.getText().toString();
+            if (!currentText.contains(".")) {
+                // Si el número no contiene un punto decimal, se puede agregar
+                operacionCompleta += ".";
+                screen.setText(currentText + ".");
             }
         });
 
 
-
-
         igual.setOnClickListener(view -> {
-            double segundoDigito = Double.parseDouble(screen.getText().toString());
-            double result;
-            switch (operation) {
-                case "+":
-                    result = primerDigito + segundoDigito;
-                    break;
-                case "-":
-                    result = primerDigito - segundoDigito;
-                    break;
-                case "*":
-                    result = primerDigito * segundoDigito;
-                    break;
-                case "/":
-                    result = primerDigito / segundoDigito;
-                    break;
-                case "√":
-                    result = Math.sqrt(segundoDigito);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + operation);
+            try {
+                // Obtén el segundo dígito después del operador
+                String[] numeros1 = operacionCompleta.split("[-+*/√]");
+                if (numeros1.length > 1) {
+                    segundoDigito = Double.parseDouble(numeros1[1]);
+                } else {
+                    // Manejar el caso en el que no hay segundo dígito
+                    throw new IllegalStateException("Falta el segundo dígito");
+                }
+
+                // Calcula el resultado y muestra el resultado en el TextView
+                double result;
+                switch (operation) {
+                    case "+":
+                        result = primerDigito + segundoDigito;
+                        break;
+                    case "-":
+                        result = primerDigito - segundoDigito;
+                        break;
+                    case "*":
+                        result = primerDigito * segundoDigito;
+                        break;
+                    case "/":
+                        if (segundoDigito != 0) {
+                            result = primerDigito / segundoDigito;
+                        } else {
+                            // Manejar la división por cero
+                            throw new ArithmeticException("División por cero");
+                        }
+                        break;
+                    case "√":
+                        if (segundoDigito >= 0) {
+                            result = Math.sqrt(segundoDigito);
+                        } else {
+                            // Manejar la raíz cuadrada de números negativos
+                            throw new ArithmeticException("Raíz cuadrada de número negativo");
+                        }
+                        break;
+                    default:
+                        // Manejar operadores inesperados
+                        throw new IllegalStateException("Operador inesperado: " + operation);
+                }
+
+                screen.setText(String.valueOf(result));
+                primerDigito = result;
+            } catch (NumberFormatException e) {
+                // Manejar errores de conversión de cadena a número
+                screen.setText("Error1");
+            } catch (ArithmeticException e) {
+                // Manejar errores de matemáticas (división por cero, raíz cuadrada de número negativo, etc.)
+                screen.setText("Error2");
+            } catch (IllegalStateException e) {
+                // Manejar el caso en el que falta el segundo dígito
+                screen.setText("Error3");
+            } catch (Exception e) {
+                // Manejar otros errores inesperados
+                screen.setText("Error4");
             }
-            screen.setText(String.valueOf(result));
-            primerDigito = result;
         });
     }
 }
