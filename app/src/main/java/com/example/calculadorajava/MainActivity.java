@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Obtén el segundo dígito después del operador
                 String[] numeros1 = operacionCompleta.split("[-+*/√]");
-                if (numeros1.length > 1) {
+                if (numeros1.length > 0) {
                     segundoDigito = Double.parseDouble(numeros1[1]);
                 } else {
                     // Manejar el caso en el que no hay segundo dígito
@@ -172,8 +173,12 @@ public class MainActivity extends AppCompatActivity {
                         throw new IllegalStateException("Operador inesperado: " + operation);
                 }
 
+                // Mostrar el resultado en el TextView
                 screen.setText(String.valueOf(result));
+
+                // Usar el resultado como el primer dígito para la siguiente operación
                 primerDigito = result;
+                operacionCompleta = String.valueOf(result);
             } catch (NumberFormatException e) {
                 // Manejar errores de conversión de cadena a número
                 screen.setText("Error1");
