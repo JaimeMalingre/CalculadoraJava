@@ -1,5 +1,6 @@
 package com.example.calculadorajava;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
@@ -20,5 +21,14 @@ public class MainResultado extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
+
+        resultadoView = findViewById(R.id.resultadoView);
+
+        // Obtener el resultado del Intent
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("resultado")) {
+            String resultado = intent.getStringExtra("resultado");
+            resultadoView.setText(resultado);
+        }
     }
 }

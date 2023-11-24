@@ -2,7 +2,9 @@ package com.example.calculadorajava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,22 +15,21 @@ public class MainActivity extends AppCompatActivity {
 
     double primerDigito;
     double segundoDigito;
-
     boolean segundoNumero = false;
     String operation = "";
-
     double numActual = 0;
-
     String operacionCompleta = "";
+    ArrayList<String> operaciones = new ArrayList<>();
+
+    Button igual;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        igual = findViewById(R.id.btnIgual);
 
-
-        //Botones de numero
 
         Button btn0 = findViewById(R.id.btn0);
         Button btn1 = findViewById(R.id.btn1);
@@ -66,12 +67,11 @@ public class MainActivity extends AppCompatActivity {
         numeros.add(btn8);
         numeros.add(btn9);
 
-        //Recorremos los numeros y los añadimos al texview
         for (Button num : numeros) {
             num.setOnClickListener(view -> {
                 if (segundoNumero) {
-                    operacionCompleta = ""; // Limpiar la operación completa para ingresar el segundo número
-                    segundoNumero = false; // Restablecer el indicador del segundo número
+                    operacionCompleta = "";
+                    segundoNumero = false;
                 }
                 operacionCompleta += num.getText().toString();
                 screen.setText(operacionCompleta);
@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
             boton1.setOnClickListener(view -> {
                 primerDigito = Double.parseDouble(screen.getText().toString());
                 operation = boton1.getText().toString();
-                operacionCompleta += operation; // Agregar el operador a la operación completa
-                screen.setText(operacionCompleta); // Mostrar la operación completa en el TextView
+                operacionCompleta += operation;
+                screen.setText(operacionCompleta);
             });
         }
 
@@ -101,12 +101,10 @@ public class MainActivity extends AppCompatActivity {
         eliminar.setOnClickListener(view -> {
             String num = screen.getText().toString();
             if (num.length() > 1) {
-                // Si hay más de un dígito, elimina el último dígito
                 operacionCompleta = operacionCompleta.substring(0, operacionCompleta.length() - 1);
                 numActual = Double.parseDouble(operacionCompleta);
                 screen.setText(num.substring(0, num.length() - 1));
             } else {
-                // Si solo hay un dígito, establece el texto como "0" y numActual como 0
                 operacionCompleta = "";
                 numActual = 0;
                 screen.setText("0");
@@ -122,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         decimal.setOnClickListener(view -> {
             String currentText = screen.getText().toString();
             if (!currentText.contains(".")) {
-                // Si el número no contiene un punto decimal, se puede agregar
                 operacionCompleta += ".";
                 screen.setText(currentText + ".");
             }
@@ -131,17 +128,15 @@ public class MainActivity extends AppCompatActivity {
 
         igual.setOnClickListener(view -> {
             try {
-                // Obtén el segundo dígito después del operador
                 String[] numeros1 = operacionCompleta.split("[-+*/√]");
+
                 if (numeros1.length > 0) {
                     segundoDigito = Double.parseDouble(numeros1[1]);
                 } else {
-                    // Manejar el caso en el que no hay segundo dígito
                     throw new IllegalStateException("Falta el segundo dígito");
                 }
-
-                // Calcula el resultado y muestra el resultado en el TextView
                 double result;
+
                 switch (operation) {
                     case "+":
                         result = primerDigito + segundoDigito;
@@ -156,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                         if (segundoDigito != 0) {
                             result = primerDigito / segundoDigito;
                         } else {
-                            // Manejar la división por cero
                             throw new ArithmeticException("División por cero");
                         }
                         break;
@@ -164,34 +158,27 @@ public class MainActivity extends AppCompatActivity {
                         if (segundoDigito >= 0) {
                             result = Math.sqrt(segundoDigito);
                         } else {
-                            // Manejar la raíz cuadrada de números negativos
                             throw new ArithmeticException("Raíz cuadrada de número negativo");
                         }
                         break;
                     default:
-                        // Manejar operadores inesperados
                         throw new IllegalStateException("Operador inesperado: " + operation);
                 }
 
-                // Mostrar el resultado en el TextView
                 screen.setText(String.valueOf(result));
 
-                // Usar el resultado como el primer dígito para la siguiente operación
                 primerDigito = result;
-                operacionCompleta = String.valueOf(result);
-            } catch (NumberFormatException e) {
-                // Manejar errores de conversión de cadena a número
-                screen.setText("Error1");
+                operaciones.add(operacionCompleta);
+                operacionCompleta = "";
+
+                Intent intent = new Intent(MainActivity.this, MainResultado.class);
+                startActivity(intent);
             } catch (ArithmeticException e) {
-                // Manejar errores de matemáticas (división por cero, raíz cuadrada de número negativo, etc.)
-                screen.setText("Error2");
-            } catch (IllegalStateException e) {
-                // Manejar el caso en el que falta el segundo dígito
-                screen.setText("Error3");
+                screen.setText("No dividir entre 0");
             } catch (Exception e) {
-                // Manejar otros errores inesperados
-                screen.setText("Error4");
+                screen.setText("Falta segundo digito");
             }
         });
     }
+
 }
