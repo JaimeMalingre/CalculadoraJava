@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, MainResultado.class);
                 startActivity(intent);
+                intent.putExtra("resultado", result);
             } catch (ArithmeticException e) {
                 screen.setText("No dividir entre 0");
             } catch (Exception e) {
@@ -180,5 +181,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
